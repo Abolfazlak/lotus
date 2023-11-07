@@ -14,7 +14,6 @@ namespace lotus.Models.Authenticate
         [Required(ErrorMessage = "Last Name is required")]
         public string? LastName { get; set; }
 
-        [EmailAddress]
         [Required(ErrorMessage = "Mobile is required")]
         public string? Mobile { get; set; }
 

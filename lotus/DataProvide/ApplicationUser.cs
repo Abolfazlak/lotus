@@ -5,6 +5,14 @@ namespace lotus.DataProvide
 {
 	public class ApplicationUser : IdentityUser
     {
+
+        public ApplicationUser()
+        {
+            CartItems = new HashSet<Cart>();
+            Orders = new HashSet<Order>();
+
+        }
+
         public string? RefreshToken { get; set; }
 
         public DateTime RefreshTokenExpiryTime { get; set; }
@@ -16,6 +24,11 @@ namespace lotus.DataProvide
         public string? LastName { get; set; }
 
         public string? Mobile { get; set; }
+
+        public virtual ICollection<Cart> CartItems { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+
+
     }
 }
 

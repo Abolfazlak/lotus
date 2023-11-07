@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus.csproj": {}
+    "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/lotus.csproj": {}
   },
   "projects": {
-    "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus.csproj": {
+    "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/lotus.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus.csproj",
+        "projectUniqueName": "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/lotus.csproj",
         "projectName": "lotus",
-        "projectPath": "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus.csproj",
+        "projectPath": "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/lotus.csproj",
         "packagesPath": "/Users/abolfazl/.nuget/packages/",
-        "outputPath": "/Users/abolfazl/Projects/lotus/lotus/lotus/obj/",
+        "outputPath": "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/abolfazl/.nuget/NuGet/NuGet.Config"
