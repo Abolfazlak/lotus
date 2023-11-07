@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "GYpS7iO/zCkunjTquIn9N7IY+2rVVBvLHlDVIjJbG2s=",
+  "Source": "lotus",
+  "BasePath": "_content/lotus",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
