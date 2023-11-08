@@ -140,3 +140,4 @@
 /Users/abolfazl/Projects/lotus/lotus/lotus/lotus/obj/Debug/net6.0/lotus.pdb
 /Users/abolfazl/Projects/lotus/lotus/lotus/lotus/obj/Debug/net6.0/lotus.genruntimeconfig.cache
 /Users/abolfazl/Projects/lotus/lotus/lotus/lotus/obj/Debug/net6.0/ref/lotus.dll
+/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/bin/Debug/net6.0/lotus.staticwebassets.runtime.json

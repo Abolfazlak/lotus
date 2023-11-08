@@ -91,17 +91,17 @@ namespace lotus.Migrations.ApplicationDb
 
             modelBuilder.Entity("lotus.DataProvide.Cart", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("id");
+                        .HasColumnType("int")
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int")
                         .HasColumnName("productId");
 
                     b.Property<string>("UserId")
@@ -119,10 +119,11 @@ namespace lotus.Migrations.ApplicationDb
 
             modelBuilder.Entity("lotus.DataProvide.Order", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("id");
+                        .HasColumnType("int")
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit")
@@ -150,10 +151,11 @@ namespace lotus.Migrations.ApplicationDb
 
             modelBuilder.Entity("lotus.DataProvide.Product", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("id");
+                        .HasColumnType("int")
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)")
@@ -175,14 +177,18 @@ namespace lotus.Migrations.ApplicationDb
 
             modelBuilder.Entity("lotus.DataProvide.ProductDetail", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("id");
+                        .HasColumnType("int")
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int")
                         .HasColumnName("productId");
 
                     b.HasKey("Id");

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace lotus.Migrations.ApplicationDb
 {
-    public partial class productTable : Migration
+    public partial class EditProductDetailssss : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,8 @@ namespace lotus.Migrations.ApplicationDb
                 name: "Product",
                 columns: table => new
                 {
-                    id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     price = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     photoUrl = table.Column<string>(type: "nvarchar(999)", maxLength: 999, nullable: true)
@@ -53,74 +54,78 @@ namespace lotus.Migrations.ApplicationDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Order",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Products = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TotalPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsPayed = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    products = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    totalPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    isPaid = table.Column<bool>(type: "bit", nullable: false),
+                    userId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_Order", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Orders_ApplicationUser_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Order_ApplicationUser_userId",
+                        column: x => x.userId,
                         principalTable: "ApplicationUser",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Cart",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    productId = table.Column<int>(type: "int", nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cart", x => x.Id);
+                    table.PrimaryKey("PK_Cart", x => x.id);
                     table.ForeignKey(
                         name: "FK_Cart_ApplicationUser_UserId",
                         column: x => x.UserId,
                         principalTable: "ApplicationUser",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cart_Product_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_Cart_Product_productId",
+                        column: x => x.productId,
                         principalTable: "Product",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ProductDetails",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    productId = table.Column<int>(type: "int", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductDetails", x => x.Id);
+                    table.PrimaryKey("PK_ProductDetails", x => x.id);
                     table.ForeignKey(
-                        name: "FK_ProductDetails_Product_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_ProductDetails_Product_productId",
+                        column: x => x.productId,
                         principalTable: "Product",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cart_ProductId",
+                name: "IX_Cart_productId",
                 table: "Cart",
-                column: "ProductId");
+                column: "productId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cart_UserId",
@@ -128,14 +133,14 @@ namespace lotus.Migrations.ApplicationDb
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_UserId",
-                table: "Orders",
-                column: "UserId");
+                name: "IX_Order_userId",
+                table: "Order",
+                column: "userId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductDetails_ProductId",
+                name: "IX_ProductDetails_productId",
                 table: "ProductDetails",
-                column: "ProductId");
+                column: "productId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -144,7 +149,7 @@ namespace lotus.Migrations.ApplicationDb
                 name: "Cart");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "ProductDetails");

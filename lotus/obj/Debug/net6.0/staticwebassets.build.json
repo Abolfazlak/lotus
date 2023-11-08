@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "GYpS7iO/zCkunjTquIn9N7IY+2rVVBvLHlDVIjJbG2s=",
+  "Hash": "CSmgVcgPbJsKHthS3QsG+/HG6w6ItXa34ry9/jLIeok=",
   "Source": "lotus",
   "BasePath": "_content/lotus",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "lotus/wwwroot",
+      "Source": "lotus",
+      "ContentRoot": "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/wwwroot/",
+      "BasePath": "_content/lotus",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

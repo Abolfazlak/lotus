@@ -29,6 +29,14 @@
     <None Remove="Repositories\" />
     <None Remove="DataProvide\" />
     <None Remove="Models\Authenticate\" />
+    <None Remove="Services\Authenticate\" />
+    <None Remove="Services\UserManagement\" />
+    <None Remove="Repositories\Authenticate\" />
+    <None Remove="Repositories\UserManagement\" />
+    <None Remove="Models\UserManagement\" />
+    <None Remove="Services\Products\" />
+    <None Remove="Models\Products\" />
+    <None Remove="Repositories\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -36,5 +44,17 @@
     <Folder Include="Repositories\" />
     <Folder Include="DataProvide\" />
     <Folder Include="Models\Authenticate\" />
+    <Folder Include="Services\Authenticate\" />
+    <Folder Include="Services\UserManagement\" />
+    <Folder Include="Repositories\Authenticate\" />
+    <Folder Include="Repositories\UserManagement\" />
+    <Folder Include="Models\UserManagement\" />
+    <Folder Include="Services\Products\" />
+    <Folder Include="Models\Products\" />
+    <Folder Include="Repositories\Products\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\" />
   </ItemGroup>
 </Project>

@@ -44,11 +44,14 @@ namespace lotus.DataProvide
 
             modelBuilder.Entity<ProductDetail>(entity =>
             {
-                entity.ToTable("ProductDetails");
+                entity.ToTable("ProductDetail");
 
                 entity.Property(e => e.Id).HasColumnName("id").IsRequired().ValueGeneratedOnAdd();
 
                 entity.Property(e => e.ProductId).HasColumnName("productId");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
 
                 entity.HasOne(p => p.Product)
                 .WithMany(d => d.ProductDetails)
