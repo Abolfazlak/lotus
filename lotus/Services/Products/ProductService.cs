@@ -11,35 +11,63 @@ namespace lotus.Services.Products
 	{
 		private readonly IProductRepo _productRepo;
         private readonly IConfiguration _configuration;
+		private readonly ILogger<ProductService> _logger;
 
-        public ProductService(IProductRepo productRepo, IConfiguration configuration)
+        public ProductService(IProductRepo productRepo, IConfiguration configuration,
+							  ILogger<ProductService> logger)
 		{
 			_productRepo = productRepo;
 			_configuration = configuration;
+			_logger = logger;
 		}
 
 
 		public async Task<bool> AddProductService(AddProductDto dto)
 		{
-			var imagePath = SaveImageToServer(dto.Image, dto.Name);
+			try
+			{
+				var imagePath = SaveImageToServer(dto.Image, dto.Name);
 
-			return await _productRepo.AddProductToDb(dto, imagePath);
+				return await _productRepo.AddProductToDb(dto, imagePath);
+			}
+			catch(Exception ex)
+			{
+                _logger.LogError($"exception occured in AddProductService: {ex.Message}");
+                return false;
+
+            }
         }
 
         public async Task<bool> AddProductDetailService(AddProductDetailDto dto)
 		{
-			var product = await _productRepo.FindProductById(dto.ProductId);
-			if (product != null)
+			try
 			{
-                return await _productRepo.AddProductDetailToDb(dto);
+				var product = await _productRepo.FindProductById(dto.ProductId);
+				if (product != null)
+				{
+					return await _productRepo.AddProductDetailToDb(dto);
+				}
+				return false;
+			}
+			catch(Exception ex)
+			{
+                _logger.LogError($"exception occured in AddProductDetailService: {ex.Message}");
+				return false;
             }
-			return false;
         }
 
         public async Task<List<ProductDto>> GetAllProducts()
         {
-            var products = await _productRepo.GetAllProductsFromDb();
-            return products;
+			try
+			{
+				var products = await _productRepo.GetAllProductsFromDb();
+				return products;
+			}
+			catch(Exception ex)
+			{
+                _logger.LogError($"exception occured in GetAllProducts: {ex.Message}");
+				return null;
+            }
         }
 
         public string SaveImageToServer(string base64Image, string Name)
@@ -58,7 +86,8 @@ namespace lotus.Services.Products
             }
 			catch(Exception ex)
 			{
-				return "";
+                _logger.LogError($"exception occured in SaveImageToServer: {ex.Message}");
+                return "";
 			}
 
         }

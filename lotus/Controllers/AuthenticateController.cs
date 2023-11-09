@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using NLog;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -17,13 +18,17 @@ namespace JWTRefreshToken.NET6._0.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<AuthenticateController> _logger;
+
 
         public AuthenticateController(
             UserManager<ApplicationUser> userManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ILogger<AuthenticateController> logger)
         {
             _userManager = userManager;
             _configuration = configuration;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -33,8 +38,6 @@ namespace JWTRefreshToken.NET6._0.Controllers
             var user = await _userManager.FindByNameAsync(model.Username);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-
                 var authClaims = new List<Claim>
                 {
                     new Claim("user_id", user.Id as string),
@@ -53,6 +56,8 @@ namespace JWTRefreshToken.NET6._0.Controllers
 
                 await _userManager.UpdateAsync(user);
 
+                _logger.LogInformation($"user log in successfuly with id:{user.Id}");
+
                 return Ok(new
                 {
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
@@ -60,6 +65,7 @@ namespace JWTRefreshToken.NET6._0.Controllers
                     Expiration = token.ValidTo
                 });
             }
+            _logger.LogInformation($"user didn't authorized");
             return Unauthorized();
         }
 
@@ -82,10 +88,16 @@ namespace JWTRefreshToken.NET6._0.Controllers
                 UserName = model.Username
             };
             var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            _logger.LogInformation($"user registered successfuly with id: {user.Id}");
+
+            if (!result.Succeeded)
+            {
+                _logger.LogError($"Exception occured while creating user");
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+            }
+
+                return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
 

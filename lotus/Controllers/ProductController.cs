@@ -12,10 +12,12 @@ namespace lotus.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly ILogger<ProductController> _logger;
 
-		public ProductController(IProductService productService)
+        public ProductController(IProductService productService, ILogger<ProductController> logger)
 		{
             _productService = productService;
+            _logger = logger;
 		}
 
         [HttpPost]
@@ -25,15 +27,22 @@ namespace lotus.Controllers
             try
             {
                 if (!IsAdminsRequest(true))
+                {
+                    _logger.LogError("user does not have a permission to add a product");
+
                     return Unauthorized();
+                }
 
                 var res = await _productService.AddProductService(dto);
+
+                _logger.LogInformation($"admin add product");
 
                 return Ok(res);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError($"exception occured in AddProduct: {ex.Message}");
+                return Problem(ex.Message);
             }
         }
 
@@ -44,15 +53,23 @@ namespace lotus.Controllers
             try
             {
                 if (!IsAdminsRequest(true))
+                {
+                    _logger.LogError("user does not have a permission to add a product detail");
+
                     return Unauthorized();
+                }
 
                 var res = await _productService.AddProductDetailService(dto);
+
+                _logger.LogInformation($"admin add product detail for product: {dto.ProductId}");
 
                 return Ok(res);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError($"exception occured in AddProductDetail: {ex.Message}");
+
+                return Problem(ex.Message);
             }
         }
 
@@ -62,16 +79,17 @@ namespace lotus.Controllers
         {
             try
             {
-                if (!IsAdminsRequest(true))
-                    return Unauthorized();
-
                 var res = await _productService.GetAllProducts();
+
+                _logger.LogInformation($"user get product list");
 
                 return Ok(res);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError($"exception occured in GetAllProducts: {ex.Message}");
+
+                return Problem(ex.Message);
             }
         }
 

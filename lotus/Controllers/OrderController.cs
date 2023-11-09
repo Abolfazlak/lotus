@@ -1,4 +1,5 @@
 ﻿using System;
+using JWTRefreshToken.NET6._0.Controllers;
 using lotus.Models.Orders;
 using lotus.Models.Products;
 using lotus.Services.Orders;
@@ -14,10 +15,12 @@ namespace lotus.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
+        private readonly ILogger<OrderController> _logger;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, ILogger<OrderController> logger)
         {
             _orderService = orderService;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -27,16 +30,26 @@ namespace lotus.Controllers
             try
             {
                 if (!IsAdminsRequest(false))
+                {
+                    _logger.LogError("user does not have a permission to add a product in cart");
+
                     return Unauthorized();
+                }
+
+
 
                 var user = GetUserId();
                 var res = await _orderService.AddProductToCartService(dto, user);
+
+                _logger.LogInformation($"user: {user} add product to cart");
+
 
                 return Ok(res);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError($"exception occured in AddToCart: {ex.Message}");
+                return Problem(ex.Message);
             }
         }
 
@@ -47,17 +60,23 @@ namespace lotus.Controllers
             try
             {
                 if (!IsAdminsRequest(false))
+                {
+                    _logger.LogError("user does not have a permission to send order");
                     return Unauthorized();
+                }
 
                 var user = GetUserId();
 
                 var res = await _orderService.SendOrderService(user);
 
+                _logger.LogInformation($"user: {user} send an order");
+
                 return Ok(res);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError($"exception occured in SendOrder: {ex.Message}");
+                return Problem(ex.Message);
             }
         }
         
@@ -68,11 +87,17 @@ namespace lotus.Controllers
             try
             {
                 if (!IsAdminsRequest(false))
+                {
+                    _logger.LogError("user does not have a permission to GetInvoiceById");
                     return Unauthorized();
+                }
 
                 var user = GetUserId(); 
 
                 var res = await _orderService.GetInvoiceByIdService(int.Parse(id), user);
+
+                _logger.LogInformation($"user: {user} get Invoice with id: {id}");
+
 
                 if (res == null)
                     return NotFound();
@@ -81,7 +106,8 @@ namespace lotus.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError($"exception occured in GetInvoiceById: {ex.Message}");
+                return Problem(ex.Message);
             }
         }
 
@@ -92,11 +118,16 @@ namespace lotus.Controllers
             try
             {
                 if (!IsAdminsRequest(false))
+                {
+                    _logger.LogError("user does not have a permission to GetInvoiceById");
                     return Unauthorized();
+                }
 
                 var user = GetUserId();
 
                 var res = await _orderService.GetInvoiceList(user);
+
+                _logger.LogInformation($"user: {user} get Invoice list");
 
                 if (res == null)
                     return NotFound();
@@ -105,7 +136,8 @@ namespace lotus.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError($"exception occured in GetInvoiceList: {ex.Message}");
+                return Problem(ex.Message);
             }
         }
 
@@ -116,17 +148,23 @@ namespace lotus.Controllers
             try
             {
                 if (!IsAdminsRequest(false))
+                {
+                    _logger.LogError("user does not have a permission to GetInvoiceById");
                     return Unauthorized();
+                }
 
                 var user = GetUserId();
 
                 var res = await _orderService.GetDebit(user);
 
+                _logger.LogInformation($"user: {user} get Debit History");
+
                 return Ok(res);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError($"exception occured in GetDebit: {ex.Message}");
+                return Problem(ex.Message);
             }
         }
 
