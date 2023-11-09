@@ -21,6 +21,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,9 @@
     <None Remove="Services\Products\" />
     <None Remove="Models\Products\" />
     <None Remove="Repositories\Products\" />
+    <None Remove="Repositories\Orders\" />
+    <None Remove="Services\Orders\" />
+    <None Remove="Models\Orders\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -53,6 +57,9 @@
     <Folder Include="Models\Products\" />
     <Folder Include="Repositories\Products\" />
     <Folder Include="wwwroot\" />
+    <Folder Include="Repositories\Orders\" />
+    <Folder Include="Services\Orders\" />
+    <Folder Include="Models\Orders\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\" />

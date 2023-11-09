@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "CSmgVcgPbJsKHthS3QsG+/HG6w6ItXa34ry9/jLIeok=",
+  "Hash": "/pLefqUiCK8VMx9JAUP7oC1vyRCTHyOq7faXUmTlAvc=",
   "Source": "lotus",
   "BasePath": "_content/lotus",
   "Mode": "Default",
@@ -15,5 +15,40 @@
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [
+    {
+      "Identity": "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/wwwroot/chips.jpeg",
+      "SourceId": "lotus",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/wwwroot/",
+      "BasePath": "_content/lotus",
+      "RelativePath": "chips.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/chips.jpeg"
+    },
+    {
+      "Identity": "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/wwwroot/pofak.jpeg",
+      "SourceId": "lotus",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/abolfazl/Projects/lotus/lotus/lotus/lotus/wwwroot/",
+      "BasePath": "_content/lotus",
+      "RelativePath": "pofak.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/pofak.jpeg"
+    }
+  ]
 }

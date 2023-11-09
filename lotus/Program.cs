@@ -1,7 +1,9 @@
 ﻿using System.Text;
 using lotus.DataProvide;
+using lotus.Repositories.Orders;
 using lotus.Repositories.Products;
 using lotus.Repositories.UserManagement;
+using lotus.Services.Orders;
 using lotus.Services.Products;
 using lotus.Services.UserManagement;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -25,6 +27,9 @@ builder.Services.AddScoped<IUserManagerRepo, UserManagerRepo>();
 builder.Services.AddScoped<IUserManagerService, UserManagerService>();
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+
 
 
 

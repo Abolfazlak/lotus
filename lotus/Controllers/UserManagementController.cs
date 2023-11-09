@@ -52,18 +52,6 @@ namespace lotus.Controllers
             return claim.Value == IsAdmin.ToString();
         }
 
-        private string GetUserId()
-        {
-            var claim = HttpContext.User.Claims.Where(x => x.Type == "user_id").FirstOrDefault();
-            if (claim == null)
-                return "";
-            return claim.Value;
-        }
-
     }
-
-
-
-
 }
 
