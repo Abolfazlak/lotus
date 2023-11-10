@@ -9,11 +9,14 @@ namespace lotus.Repositories.Orders
 	{
 		private readonly ApplicationDbContext _lotusContext;
 		private readonly UserDbContext _userContext;
+        private readonly ILogger<OrderRepo> _logger;
 
-		public OrderRepo(ApplicationDbContext lotusContext, UserDbContext userContext)
+		public OrderRepo(ApplicationDbContext lotusContext, UserDbContext userContext,
+                         ILogger<OrderRepo> logger)
 		{
 			_lotusContext = lotusContext;
 			_userContext = userContext;
+            _logger = logger;
 		}
 
         public async Task<bool> AddProductToCartDb(AddToCartDto dto, string user)
@@ -33,6 +36,8 @@ namespace lotus.Repositories.Orders
             }
             catch(Exception ex)
             {
+                _logger.LogError($"exception occured in AddProductToCartDb: {ex.Message}");
+
                 return false;
             }
         }
@@ -60,6 +65,8 @@ namespace lotus.Repositories.Orders
             }
             catch (Exception ex)
             {
+                _logger.LogError($"exception occured in GetUsersCartItemsFromDb: {ex.Message}");
+
                 return new List<ProductItemModel>();
             }
         }
@@ -83,6 +90,8 @@ namespace lotus.Repositories.Orders
             }
             catch (Exception ex)
             {
+                _logger.LogError($"exception occured in AdditemToOrder: {ex.Message}");
+
                 return false;
             }
         }
@@ -98,7 +107,7 @@ namespace lotus.Repositories.Orders
             }
             catch(Exception ex)
             {
-                     
+                _logger.LogError($"exception occured in RemoveItemsFromCart: {ex.Message}");
             }
         }
 
@@ -124,6 +133,8 @@ namespace lotus.Repositories.Orders
             }
             catch(Exception ex)
             {
+                _logger.LogError($"exception occured in GetInvoiceByIdFromDb: {ex.Message}");
+
                 return null;
             }
         }
@@ -149,6 +160,8 @@ namespace lotus.Repositories.Orders
             }
             catch (Exception ex)
             {
+                _logger.LogError($"exception occured in GetListOfOrders: {ex.Message}");
+
                 return null;
             }
         }

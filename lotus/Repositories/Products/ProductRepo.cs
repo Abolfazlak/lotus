@@ -2,6 +2,7 @@
 using lotus.DataProvide;
 using lotus.Models.Products;
 using lotus.Models.UserManagement;
+using lotus.Repositories.Orders;
 using Microsoft.EntityFrameworkCore;
 
 namespace lotus.Repositories.Products
@@ -9,10 +10,12 @@ namespace lotus.Repositories.Products
     public class ProductRepo : IProductRepo
     {
         private readonly ApplicationDbContext _lotusContext;
+        private readonly ILogger<ProductRepo> _logger;
 
-        public ProductRepo(ApplicationDbContext lotusContext)
+        public ProductRepo(ApplicationDbContext lotusContext, ILogger<ProductRepo> logger)
         {
             _lotusContext = lotusContext;
+            _logger = logger;
         }
 
         public async Task<bool> AddProductToDb(AddProductDto dto, string path)
@@ -32,8 +35,10 @@ namespace lotus.Repositories.Products
             }
             catch (Exception ex)
             {
+                _logger.LogError($"exception occured in AddProductToDb: {ex.Message}");
+
                 return false;
-                }
+            }
         }
 
 
@@ -53,6 +58,8 @@ namespace lotus.Repositories.Products
             }
             catch (Exception ex)
             {
+                _logger.LogError($"exception occured in AddProductDetailToDb: {ex.Message}");
+
                 return false;
             }
         }
@@ -69,6 +76,8 @@ namespace lotus.Repositories.Products
             }
             catch(Exception ex)
             {
+                _logger.LogError($"exception occured in FindProductById: {ex.Message}");
+
                 return null;
             }
         }
@@ -101,6 +110,8 @@ namespace lotus.Repositories.Products
             }
             catch (Exception ex)
             {
+                _logger.LogError($"exception occured in GetAllProductsFromDb: {ex.Message}");
+
                 return new List<ProductDto>();
             }
 
