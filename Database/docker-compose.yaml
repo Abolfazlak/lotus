@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+
+ mssql:
+   image: 'mcr.microsoft.com/mssql/server'
+   ports:
+    - '1444:1433'
+   environment:
+    - ACCEPT_EULA=Y
+    - SA_PASSWORD=Test1234
+   volumes:
+    - testdb:/var/opt/mssql
+
+volumes:
+ testdb:
+
+
