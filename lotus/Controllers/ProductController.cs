@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace lotus.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -21,6 +20,7 @@ namespace lotus.Controllers
 		}
 
         [HttpPost]
+        [Authorize]
         [Route("AddProduct")]
         public async Task<IActionResult> AddProduct(AddProductDto dto)
         {
@@ -47,6 +47,7 @@ namespace lotus.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("AddProductDetail")]
         public async Task<IActionResult> AddProductDetail(AddProductDetailDto dto)
         {
